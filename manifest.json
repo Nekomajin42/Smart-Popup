@@ -1,0 +1,49 @@
+{
+	"name": "Smart Popup",
+	"author" : "Nekomajin",
+	"description" : "Floating toolbar for quick actions",
+	"manifest_version" : 2,
+	"version" : "0.1",
+	"background" : 
+	{
+		"scripts" : ["background.js"],
+		"persistent" : false
+	},
+	"icons" : 
+	{
+		"128": "icons/icon128.png", 
+		"64": "icons/icon64.png", 
+		"48": "icons/icon48.png", 
+		"32": "icons/icon32.png", 
+		"16": "icons/icon16.png"
+	},
+	"options_page" : "options/options.html",
+	"content_scripts": 
+	[
+		{
+			"js": ["content/index.js",
+					"content/popup.js"], 
+			"css": ["content/popup.css"], 
+			"matches": ["<all_urls>"], 
+			"include_globs": [], 
+			"exclude_globs": [], 
+			"run_at": "document_end", 
+			"all_frames" : true
+		}
+	],
+	"web_accessible_resources" : 
+	[
+		
+	],
+	"permissions" : 
+	[
+		"clipboardRead",
+		"clipboardWrite",
+		"notifications",
+		"storage",
+		"tabs", 
+		"http://*/*", 
+		"https://*/*"
+	],
+	"content_security_policy": "script-src 'self'; object-src 'self';"
+}

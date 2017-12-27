@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<!-- coded by Nekomajin -->
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>Smart Popup Settings</title>
+		<link rel="stylesheet" href="options.css" type="text/css" />
+		<link rel="icon" href="../icons/icon16.png" type="image/png" />
+		<script src="options.js" type="text/javascript"></script>
+	</head>
+	<body>
+		<nav>
+			<img src="../icons/icon.svg" alt="icon" />
+			<h1>Smart Popup</h1>
+			<ul>
+				<li><a href="#settings" id="settings-nav">Settings</a></li>
+				<li><a href="#help" id="help-nav">Help</a></li>
+				<li><a href="#changelog" id="changelog-nav">Changelog</a></li>
+				<li><a href="#credits" id="credits-nav">Credits</a></li>
+			</ul>
+		</nav>
+		<main>
+			<article id="settings">
+				<section>
+					<h2>Functions</h2>
+					<form id="functions">
+						<label for="copyFunction"><input type="checkbox" id="copyFunction" /> Copy (copy selected text to clipboard)</label>
+						<label for="pasteFunction"><input type="checkbox" id="pasteFunction" /> Paste (paste clipboard content to input fields)</label>
+						<label for="searchFunction"><input type="checkbox" id="searchFunction" /> Search (search selected text with selected search engine)</label>
+						<label for="openFunction"><input type="checkbox" id="openFunction" /> Open (open unlinkified URL in new tab)</label>
+					</form>
+				</section>
+				<section>
+					<h2>Search engine</h2>
+					<form id="searches">
+						<select id="searchEngine">
+							<option value="https://www.google.com/search?q=">Google</option>
+							<option value="https://www.bing.com/search?FORM=INCOH2&PC=IFJ1&PTAG=ICO-c9d0fc87&q=">Bing</option>
+							<option value="https://us.search.yahoo.com/yhs/search?hspart=iry&hsimp=yhs-fullyhosted_009&type=dpp_vvldnu_00_00&param1=1&param2=pa%3Ddowncoll&p=">Yahoo!</option>
+							<option value="https://duckduckgo.com/?q=">DuckDuckGo</option>
+						</select>
+					</form>
+				</section>
+				<section>
+					<h2>Colors</h2>
+					<form id="colors">
+						<label for="mainColor"><input type="color" id="mainColor" /> Main color</label>
+						<label for="hoverColor"><input type="color" id="hoverColor" /> Hover color</label>
+						<label for="shadowColor"><input type="color" id="shadowColor" /> Shadow color</label>
+						<label for="mainTextColor"><input type="color" id="mainTextColor" /> Main text color</label>
+						<label for="hoverTextColor"><input type="color" id="hoverTextColor" /> Hover text color</label>
+					</form>
+				</section>
+			</article>
+			<article id="help">
+				<section>
+					<h2>How to use</h2>
+					<p><em>-later-</em></p>
+				</section>
+				<section>
+					<h2>Permissions</h2>
+					<ul>
+						<li>"clipboardRead" to read the system clipboard</li>
+						<li>"clipboardWrite" to write the system clipboard</li>
+						<li>"notifications" to show you a little notification when the extension is updated</li>
+						<li>"storage" to save user settings</li>
+						<li>"tabs" to inject the content script</li>
+					</ul>
+				</section>
+			</article>
+			<article id="changelog">
+				<section>
+					<h2>Future plans</h2>
+					<ul>
+						<li>Port as WebExtension</li>
+						<li>Implement inline translate and convert functions</li>
+						<li>Implement custom search engine setting</li>
+						<li>Localization</li>
+					</ul>
+				</section>
+				<section>
+					<h2>v0.1 beta (2017. 06. 27.)</h2>
+					<p>Initial release</p>
+					<ul>
+						<li>ADD: Copy, Paste, Search and Open functions</li>
+						<li>ADD: Select search engine</li>
+						<li>ADD: Custom stylesheet settings</li>
+					</ul>
+				</section>
+			</article>
+			<article id="credits">
+				<section>
+					<h2>Credits</h2>
+					<ul>
+						<li>Created by: <a href="https://github.com/Nekomajin42/" target="_blank">Tóth Róbert</a></li>
+						<li>URL RegExp: <a href="https://gist.github.com/dperini/729294" target="_blank">Diego Perini</a></li>
+					</ul>
+				</section>
+				<section>
+					<h2>Contact</h2>
+					<ul>
+						<li><a href="https://github.com/Nekomajin42/Smart-Popup" target="_blank">GitHub</a></li>
+						<li><a href="mailto:nekomajin42@gmail.com" target="_blank">Email</a></li>
+					</ul>
+				</section>
+				<section>
+					<h2>Warning</h2>
+					<ul>
+						<li>This extension was not made by any browser vendor. The company that made your browser is not responsible for any of the errors.</li>
+					</ul>
+				</section>
+				<section>
+					<h2>License</h2>
+					<ul>
+						<li>You can share this extension, but I ask you to link the download page instead of copying the packed extension file.</li>
+						<li>You can copy and modify the code of this extension as long as it's free and you use the proper credits.</li>
+					</ul>
+				</section>
+			</article>
+		</main>
+	</body>
+</html>

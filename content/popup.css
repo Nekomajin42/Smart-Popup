@@ -1,0 +1,56 @@
+#smart-popup {
+visibility: hidden;
+position: absolute;
+z-index: 1000;
+background-color: #8080ff;
+border: 2px solid #8080ff;
+border-radius: 5px;
+box-shadow: 0 2px #000080;}
+
+#smart-popup.visible {
+visibility: visible;}
+
+#smart-popup::before {
+content: "";
+display: block;
+position: absolute;
+left: calc(50% - 10px);
+z-index: 999;
+width: 0;
+height: 0;
+border: 10px solid Transparent;
+border-top: 10px solid #8080ff;
+border-right: 10px solid #8080ff;
+border-radius: 3px;}
+
+#smart-popup.upside-up::before {
+top: -10px;
+bottom: auto;
+transform: rotate(-45deg);}
+
+#smart-popup.upside-down::before {
+top: auto;
+bottom: -10px;
+box-shadow: 2px -2px #000080;
+transform: rotate(135deg);}
+
+#smart-popup input[type="button"] {
+z-index: 1001;
+margin: 0;
+padding: 10px;
+line-height: 100%;
+text-align: center;
+font-family: Verdana;
+font-size: 14px;
+font-weight: bold;
+color: #ffffff;
+background-color: Transparent;
+border: none;
+border-radius: 3px;}
+
+#smart-popup input[type="button"]:hover {
+color: #000080;
+background-color: #00ffff;}
+
+#smart-popup input[type="button"]:focus {
+outline: none;}
