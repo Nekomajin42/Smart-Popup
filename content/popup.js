@@ -7,8 +7,10 @@
 let smartPopup = {
 	// event clone
 	event: {
-		X: 0,
-		Y: 0,
+		pageX: 0,
+		pageY: 0,
+		clientX: 0,
+		clientY: 0,
 		clicks: 0
 	},
 	
@@ -53,11 +55,28 @@ let smartPopup = {
 				}
 			}
 			return false;
+		},
+		isLink: function() {
+			let current = this.element;
+			while (1)
+			{
+				if (current.tagName === "HTML")
+				{
+					return false;
+				}
+				if (current.tagName === "A")
+				{
+					this.element = current;
+					return true;
+				}
+				current = current.parentNode;
+			}
 		}
 	},
 	
 	// which buttons to show
 	buttons: {
+		jump: false,
 		open: false,
 		search: false,
 		copy: false,
@@ -71,21 +90,56 @@ let smartPopup = {
 		smartPopup.popup = document.createElement("form");
 		smartPopup.popup.id = "smart-popup";
 		
-		// open new tab with selection
+		// open link in current tab
+		if (smartPopup.buttons.jump === true)
+		{
+			let jump = document.createElement("input");
+			jump.type = "button";
+			jump.value = "Jump";
+			jump.id = "button-jump";
+			jump.addEventListener("click", function()
+			{
+				chrome.runtime.sendMessage({
+					text: smartPopup.target.element.href, 
+					action: "jump"
+				});
+			});
+			jump.addEventListener("contextmenu", function(e)
+			{
+				e.preventDefault();
+			});
+			smartPopup.popup.appendChild(jump);
+		}
+		
+		// open link in new tab
 		if (smartPopup.buttons.open === true)
 		{
+			let text = (smartPopup.target.isLink()) ? smartPopup.target.element.href : smartPopup.selection.text;
 			let open = document.createElement("input");
 			open.type = "button";
 			open.value = "Open";
 			open.id = "button-open";
 			open.addEventListener("click", function()
 			{
-				chrome.runtime.sendMessage({selection: smartPopup.selection.text, action: "open"});
+				chrome.runtime.sendMessage({
+					text: text, 
+					action: "open", 
+					active: true
+				});
+			});
+			open.addEventListener("contextmenu", function(e)
+			{
+				e.preventDefault();
+				chrome.runtime.sendMessage({
+					text: text, 
+					action: "open", 
+					active: false
+				});
 			});
 			smartPopup.popup.appendChild(open);
 		}
 		
-		// open new tab with selection
+		// open new tab with selection for search
 		if (smartPopup.buttons.search === true)
 		{
 			let search = document.createElement("input");
@@ -94,7 +148,20 @@ let smartPopup = {
 			search.id = "button-search";
 			search.addEventListener("click", function()
 			{
-				chrome.runtime.sendMessage({selection: smartPopup.selection.text, action: "search"});
+				chrome.runtime.sendMessage({
+					text: smartPopup.selection.text, 
+					action: "search", 
+					active: true
+				});
+			});
+			search.addEventListener("contextmenu", function(e)
+			{
+				e.preventDefault();
+				chrome.runtime.sendMessage({
+					text: smartPopup.selection.text, 
+					action: "search", 
+					active: false
+				});
 			});
 			smartPopup.popup.appendChild(search);
 		}
@@ -109,6 +176,10 @@ let smartPopup = {
 			copy.addEventListener("click", function()
 			{
 				document.execCommand("copy");
+			});
+			copy.addEventListener("contextmenu", function(e)
+			{
+				e.preventDefault();
 			});
 			smartPopup.popup.appendChild(copy);
 		}
@@ -125,6 +196,10 @@ let smartPopup = {
 				smartPopup.target.element.focus();
 				document.execCommand("paste");
 			});
+			paste.addEventListener("contextmenu", function(e)
+			{
+				e.preventDefault();
+			});
 			smartPopup.popup.appendChild(paste);
 		}
 		
@@ -139,11 +214,12 @@ let smartPopup = {
 	{
 		try
 		{
-			document.body.removeChild(smartPopup.popup);
+			smartPopup.buttons.jump = false;
 			smartPopup.buttons.open = false;
 			smartPopup.buttons.search = false;
 			smartPopup.buttons.copy = false;
 			smartPopup.buttons.paste = false;
+			document.body.removeChild(smartPopup.popup);
 		}
 		catch (e) {}
 	},
@@ -152,29 +228,29 @@ let smartPopup = {
 	setPosition: function()
 	{
 		// horizontal position
-		if (smartPopup.popup.clientWidth > smartPopup.event.X) // on the left side
+		if (smartPopup.event.clientX < (smartPopup.popup.clientWidth / 2 + 20)) // on the left side
 		{
 			smartPopup.popup.style.left = "10px";
 		}
-		else if ((document.body.clientWidth - smartPopup.event.X) < smartPopup.popup.clientWidth) // on the right side
+		else if ((window.innerWidth - smartPopup.event.clientX) < (smartPopup.popup.clientWidth / 2 + 20)) // on the right side
 		{
 			smartPopup.popup.style.right = "10px";
 		}
 		else // in the middle
 		{
-			smartPopup.popup.style.left = smartPopup.event.X - (smartPopup.popup.clientWidth / 2) + "px";
-			smartPopup.popup.classList.add("upside-up");
+			smartPopup.popup.style.left = smartPopup.event.pageX - (smartPopup.popup.clientWidth / 2) + "px";
 		}
 		
 		// vertical position
-		if ((document.body.scrollHeight - smartPopup.event.Y) < 100) // bottom of the page
+		if ((window.innerHeight - smartPopup.event.clientY) < 80) // bottom of the screen
 		{
-			smartPopup.popup.style.top = smartPopup.event.Y - (smartPopup.popup.clientHeight + 24) + "px";
+			smartPopup.popup.style.top = smartPopup.event.pageY - (smartPopup.popup.clientHeight + 24) + "px";
 			smartPopup.popup.classList.add("upside-down");
 		}
 		else // anywhere else
 		{
-			smartPopup.popup.style.top = smartPopup.event.Y + 24 + "px";
+			smartPopup.popup.style.top = smartPopup.event.pageY + 24 + "px";
+			smartPopup.popup.classList.add("upside-up");
 		}
 	},
 	

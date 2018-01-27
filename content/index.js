@@ -16,14 +16,7 @@ chrome.storage.local.get(null, function(result)
 // catch click events
 document.body.addEventListener("click", function(e)
 {
-	// set event details
-	smartPopup.selection.text = document.getSelection().toString();
-	smartPopup.target.element = e.target;
-	smartPopup.event.X = e.pageX;
-	smartPopup.event.Y = e.pageY;
-	smartPopup.event.clicks = e.detail;
-	
-	if (["button-copy", "button-paste", "button-search", "button-open"].indexOf(e.target.id) > -1) // outer buttons
+	if (["button-copy", "button-paste", "button-search", "button-open", "button-jump"].indexOf(e.target.id) > -1) // outer buttons
 	{
 		// remove previous instance
 		smartPopup.remove();
@@ -34,7 +27,25 @@ document.body.addEventListener("click", function(e)
 		// remove previous instance
 		smartPopup.remove();
 		
+		// set event details
+		smartPopup.selection.text = document.getSelection().toString();
+		smartPopup.target.element = e.target;
+		smartPopup.event.pageX = e.pageX;
+		smartPopup.event.pageY = e.pageY;
+		smartPopup.event.clientX = e.clientX;
+		smartPopup.event.clientY = e.clientY;
+		smartPopup.event.clicks = e.detail;
+		
 		// filter available functions
+		if (smartPopup.settings.functions.link && smartPopup.target.isLink()) // link
+		{
+			e.preventDefault();
+			window.getSelection().removeAllRanges();
+			smartPopup.selection.text = "";
+			smartPopup.buttons.jump = true;
+			smartPopup.buttons.open = true;
+		}
+		
 		if (smartPopup.selection.isSelection()) // selection
 		{
 			if (smartPopup.selection.isURL())
@@ -47,7 +58,8 @@ document.body.addEventListener("click", function(e)
 			}
 			smartPopup.buttons.copy = smartPopup.settings.functions.copy;
 		}
-		if (smartPopup.target.isInput()) // input field
+		
+		if (smartPopup.target.isInput()) // input
 		{
 			smartPopup.buttons.paste = smartPopup.settings.functions.paste;
 		}
@@ -61,5 +73,20 @@ document.body.addEventListener("click", function(e)
 				break;
 			}
 		}
+	}
+});
+
+// catch contextmenu event
+document.body.addEventListener("contextmenu", function()
+{
+	smartPopup.remove();
+});
+
+// catch keyboard events
+document.body.addEventListener("keydown", function(e)
+{
+	if (e.keyCode === 27) // Esc
+	{
+		smartPopup.remove();
 	}
 });

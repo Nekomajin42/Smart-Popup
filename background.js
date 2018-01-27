@@ -17,18 +17,18 @@ chrome.runtime.onInstalled.addListener(function(details)
 					copy : (saved.functions.copy != undefined) ? saved.functions.copy : true,
 					paste : (saved.functions.paste != undefined) ? saved.functions.paste : true,
 					search : (saved.functions.search != undefined) ? saved.functions.search : true,
-					open : (saved.functions.open != undefined) ? saved.functions.open : true
+					open : (saved.functions.open != undefined) ? saved.functions.open : true,
+					link : (saved.functions.link != undefined) ? saved.functions.link : false
 				},
 				searches: {
-					engine: (saved.searches.engine != undefined) ? saved.searches.engine : "https://www.google.com/search?q=",
-					custom: false
+					engine: (saved.searches.engine != undefined) ? saved.searches.engine : "https://www.google.com/search?q="
 				},
 				colors: {
 					main : (saved.colors.main != undefined) ? saved.colors.main : "#8080ff",
-					hover : (saved.colors.hover != undefined) ? saved.colors.hover : "#00ffff",
+					hover : (saved.colors.hover != undefined) ? saved.colors.hover : "#ffffff",
 					shadow : (saved.colors.shadow != undefined) ? saved.colors.shadow : "#000080",
 					mainText : (saved.colors.mainText != undefined) ? saved.colors.mainText : "#ffffff",
-					hoverText : (saved.colors.hoverText != undefined) ? saved.colors.hoverText : "#000080"
+					hoverText : (saved.colors.hoverText != undefined) ? saved.colors.hoverText : "#8080ff"
 				}
 			});
 		});
@@ -74,16 +74,27 @@ window.addEventListener("DOMContentLoaded", function()
 
 chrome.runtime.onMessage.addListener(function(request, sender, response)
 {
-	if (request.action === "open")
+	if (request.action === "jump")
 	{
-		chrome.tabs.create({url: request.selection});
+		chrome.tabs.update({
+			url: request.text
+		});
+	}
+	else if (request.action === "open")
+	{
+		chrome.tabs.create({
+			url: request.text, 
+			active: request.active
+		});
 	}
 	else if (request.action === "search")
 	{
 		chrome.storage.local.get("searches", function(result)
 		{
-			console.log(result);
-			chrome.tabs.create({url: result.searches.engine + request.selection});
+			chrome.tabs.create({
+				url: result.searches.engine + request.text, 
+				active: request.active
+			});
 		});
 	}
 });

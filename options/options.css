@@ -110,6 +110,9 @@ text-align: center;}
 section form select {
 padding: 3px;}
 
+section form input[type="text"] {
+padding: 3px;}
+
 section form input[type="checkbox"] {
 width: 16px;
 height: 16px;

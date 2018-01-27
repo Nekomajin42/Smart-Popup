@@ -8,8 +8,9 @@ window.addEventListener("DOMContentLoaded", function()
 		document.getElementById("pasteFunction").checked = saved.functions.paste;
 		document.getElementById("searchFunction").checked = saved.functions.search;
 		document.getElementById("openFunction").checked = saved.functions.open;
+		document.getElementById("linkFunction").checked = saved.functions.link;
 		
-		document.getElementById("searchEngine").value = saved.searches.engine;
+		document.getElementById("engineSearch").value = saved.searches.engine;
 		
 		document.getElementById("mainColor").value = saved.colors.main;
 		document.getElementById("hoverColor").value = saved.colors.hover;
@@ -27,7 +28,8 @@ window.addEventListener("DOMContentLoaded", function()
 				copy: document.getElementById("copyFunction").checked,
 				paste: document.getElementById("pasteFunction").checked,
 				search: document.getElementById("searchFunction").checked,
-				open: document.getElementById("openFunction").checked
+				open: document.getElementById("openFunction").checked,
+				link: document.getElementById("linkFunction").checked
 			}
 		});
 	});
@@ -36,7 +38,7 @@ window.addEventListener("DOMContentLoaded", function()
 		chrome.storage.local.set(
 		{
 			searches: {
-				engine: document.getElementById("searchEngine").value
+				engine: document.getElementById("engineSearch").value
 			}
 		});
 	});
