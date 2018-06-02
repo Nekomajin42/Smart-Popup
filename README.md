@@ -16,15 +16,15 @@ Features included:
 
 ## Limitations
 
-*Please note, this extension is in testing phase and under developement!*
+***Please note, this extension is in testing phase and under developement!***
 
 - The extension currently works only in Chromium based browsers. It will change in the future, as a WebExtension port is planned.
 - The extension currently available only in English. It may change in the future.
 
 ## Installation
 
-The extension is only available on this site, for now. 
-If you would like to test it, please download the [CRX file](https://github.com/Nekomajin42/Smart-Popup/blob/master/build/Smart%20popup.crx) and install it manually!
+The extension is only available from this site, for now. 
+If you would like to test it, please download the [CRX or 7z file](https://github.com/Nekomajin42/Smart-Popup/blob/master/build) and install it manually!
 
 ## Feedback
 
