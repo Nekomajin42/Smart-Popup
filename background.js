@@ -10,7 +10,7 @@ chrome.runtime.onInstalled.addListener(function(details)
 		{
 			saved.functions = (saved.functions != undefined) ? saved.functions : {};
 			saved.searches = (saved.searches != undefined) ? saved.searches : {};
-			saved.colors = (saved.colors != undefined) ? saved.colors : {};
+			saved.style = (saved.style != undefined) ? saved.style : {};
 			chrome.storage.local.set(
 			{
 				functions: {
@@ -23,12 +23,13 @@ chrome.runtime.onInstalled.addListener(function(details)
 				searches: {
 					engine: (saved.searches.engine != undefined) ? saved.searches.engine : "https://www.google.com/search?q="
 				},
-				colors: {
-					main : (saved.colors.main != undefined) ? saved.colors.main : "#8080ff",
-					hover : (saved.colors.hover != undefined) ? saved.colors.hover : "#ffffff",
-					shadow : (saved.colors.shadow != undefined) ? saved.colors.shadow : "#000080",
-					mainText : (saved.colors.mainText != undefined) ? saved.colors.mainText : "#ffffff",
-					hoverText : (saved.colors.hoverText != undefined) ? saved.colors.hoverText : "#8080ff"
+				style: {
+					main : (saved.style.main != undefined) ? saved.style.main : "#8080ff",
+					hover : (saved.style.hover != undefined) ? saved.style.hover : "#ffffff",
+					shadow : (saved.style.shadow != undefined) ? saved.style.shadow : "#000080",
+					mainText : (saved.style.mainText != undefined) ? saved.style.mainText : "#ffffff",
+					hoverText : (saved.style.hoverText != undefined) ? saved.style.hoverText : "#8080ff",
+					borderRadius : (saved.style.borderRadius != undefined) ? saved.style.borderRadius : 5
 				}
 			});
 		});

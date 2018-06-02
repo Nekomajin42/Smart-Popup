@@ -2,10 +2,18 @@
 visibility: hidden;
 position: absolute;
 z-index: 1000;
+width: auto;
+height: auto;
+margin: 0;
+padding: 0;
 white-space: nowrap;
 background-color: #8080ff;
-border: 2px solid #8080ff;
-border-radius: 5px;
+border-radius: 5px;}
+
+#smart-popup.upside-up {
+box-shadow: 0 -2px #000080;}
+
+#smart-popup.upside-down {
 box-shadow: 0 2px #000080;}
 
 #smart-popup.visible {
@@ -16,42 +24,43 @@ content: "";
 display: block;
 position: absolute;
 left: calc(50% - 10px);
-z-index: 999;
-width: 0;
-height: 0;
-border: 10px solid Transparent;
-border-top: 10px solid #8080ff;
-border-right: 10px solid #8080ff;
+z-index: -1;
+width: 24px;
+height: 24px;
+background-color: #8080ff;
 border-radius: 3px;}
 
 #smart-popup.upside-up::before {
-top: -10px;
+top: -8px;
 bottom: auto;
+box-shadow: 2px -2px #000080;
 transform: rotate(-45deg);}
 
 #smart-popup.upside-down::before {
 top: auto;
-bottom: -10px;
+bottom: -8px;
 box-shadow: 2px -2px #000080;
 transform: rotate(135deg);}
 
 #smart-popup input[type="button"] {
-z-index: 1001;
+z-index: 1;
 margin: 0;
 padding: 10px;
 line-height: 100%;
 text-align: center;
-font-family: Verdana;
+font-family: Arial;
 font-size: 14px;
 font-weight: bold;
 color: #ffffff;
-background-color: Transparent;
-border: none;
-border-radius: 3px;}
+background-color: #8080ff;
+border: 2px solid #8080ff;
+outline: none;
+border-radius: 5px;
+box-shadow: none;}
 
 #smart-popup input[type="button"]:hover {
-color: #000080;
-background-color: #00ffff;}
+color: #8080ff;
+background-color: #ffffff;}
 
 #smart-popup input[type="button"]:focus {
 outline: none;}

@@ -244,12 +244,12 @@ let smartPopup = {
 		// vertical position
 		if ((window.innerHeight - smartPopup.event.clientY) < 80) // bottom of the screen
 		{
-			smartPopup.popup.style.top = smartPopup.event.pageY - (smartPopup.popup.clientHeight + 24) + "px";
+			smartPopup.popup.style.top = smartPopup.event.pageY - (smartPopup.popup.clientHeight + 32) + "px";
 			smartPopup.popup.classList.add("upside-down");
 		}
 		else // anywhere else
 		{
-			smartPopup.popup.style.top = smartPopup.event.pageY + 24 + "px";
+			smartPopup.popup.style.top = smartPopup.event.pageY + 28 + "px";
 			smartPopup.popup.classList.add("upside-up");
 		}
 	},
@@ -261,15 +261,18 @@ let smartPopup = {
 		let style = document.createElement("style");
 		style.type = "text/css";
 		style.id = "smart-popup-style";
-		style.innerHTML = "#smart-popup {background-color: " + smartPopup.settings.colors.main + ";}\n";
-		style.innerHTML += "#smart-popup {border: 2px solid " + smartPopup.settings.colors.main + ";}\n";
-		style.innerHTML += "#smart-popup {box-shadow: 0 2px " + smartPopup.settings.colors.shadow + ";}\n";
-		style.innerHTML += "#smart-popup::before {border-top: 10px solid " + smartPopup.settings.colors.main + ";}\n";
-		style.innerHTML += "#smart-popup::before {border-right: 10px solid " + smartPopup.settings.colors.main + ";}\n";
-		style.innerHTML += "#smart-popup.upside-down::before {box-shadow: 2px -2px " + smartPopup.settings.colors.shadow + ";}\n";
-		style.innerHTML += "#smart-popup input[type='button'] {color: " + smartPopup.settings.colors.mainText + ";}\n";
-		style.innerHTML += "#smart-popup input[type='button']:hover {color: " + smartPopup.settings.colors.hoverText + ";}\n";
-		style.innerHTML += "#smart-popup input[type='button']:hover {background-color: " + smartPopup.settings.colors.hover + ";}";
+		style.innerHTML = "#smart-popup {background-color: " + smartPopup.settings.style.main + ";}\n";
+		style.innerHTML += "#smart-popup {border-radius: " + smartPopup.settings.style.borderRadius + "px;}\n";
+		style.innerHTML += "#smart-popup.upside-down {box-shadow: 0 2px " + smartPopup.settings.style.shadow + ";}\n";
+		style.innerHTML += "#smart-popup.upside-up {box-shadow: 0 -2px " + smartPopup.settings.style.shadow + ";}\n";
+		style.innerHTML += "#smart-popup::before {background-color: " + smartPopup.settings.style.main + ";}\n";
+		style.innerHTML += "#smart-popup.upside-down::before {box-shadow: 2px -2px " + smartPopup.settings.style.shadow + ";}\n";
+		style.innerHTML += "#smart-popup.upside-up::before {box-shadow: 2px -2px " + smartPopup.settings.style.shadow + ";}\n";
+		style.innerHTML += "#smart-popup input[type='button'] {border: 2px solid " + smartPopup.settings.style.main + ";}\n";
+		style.innerHTML += "#smart-popup input[type='button'] {border-radius: " + smartPopup.settings.style.borderRadius + "px;}\n";
+		style.innerHTML += "#smart-popup input[type='button'] {color: " + smartPopup.settings.style.mainText + ";}\n";
+		style.innerHTML += "#smart-popup input[type='button']:hover {color: " + smartPopup.settings.style.hoverText + ";}\n";
+		style.innerHTML += "#smart-popup input[type='button']:hover {background-color: " + smartPopup.settings.style.hover + ";}";
 		document.querySelector("head").appendChild(style);
 	}
 };

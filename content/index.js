@@ -85,8 +85,5 @@ document.body.addEventListener("contextmenu", function()
 // catch keyboard events
 document.body.addEventListener("keydown", function(e)
 {
-	if (e.keyCode === 27) // Esc
-	{
-		smartPopup.remove();
-	}
+	smartPopup.remove();
 });

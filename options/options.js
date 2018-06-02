@@ -12,11 +12,12 @@ window.addEventListener("DOMContentLoaded", function()
 		
 		document.getElementById("engineSearch").value = saved.searches.engine;
 		
-		document.getElementById("mainColor").value = saved.colors.main;
-		document.getElementById("hoverColor").value = saved.colors.hover;
-		document.getElementById("shadowColor").value = saved.colors.shadow;
-		document.getElementById("mainTextColor").value = saved.colors.mainText;
-		document.getElementById("hoverTextColor").value = saved.colors.hoverText;
+		document.getElementById("mainColor").value = saved.style.main;
+		document.getElementById("hoverColor").value = saved.style.hover;
+		document.getElementById("shadowColor").value = saved.style.shadow;
+		document.getElementById("mainTextColor").value = saved.style.mainText;
+		document.getElementById("hoverTextColor").value = saved.style.hoverText;
+		document.getElementById("borderRadius").value = saved.style.borderRadius;
 	});
 	
 	// save user settings
@@ -42,16 +43,17 @@ window.addEventListener("DOMContentLoaded", function()
 			}
 		});
 	});
-	document.querySelector("#colors").addEventListener("change", function()
+	document.querySelector("#style").addEventListener("change", function()
 	{
 		chrome.storage.local.set(
 		{
-			colors: {
+			style: {
 				main: document.getElementById("mainColor").value,
 				hover: document.getElementById("hoverColor").value,
 				shadow: document.getElementById("shadowColor").value, 
 				mainText: document.getElementById("mainTextColor").value,
-				hoverText: document.getElementById("hoverTextColor").value
+				hoverText: document.getElementById("hoverTextColor").value,
+				borderRadius: document.getElementById("borderRadius").value
 			}
 		});
 	});
